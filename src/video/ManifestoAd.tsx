@@ -1,4 +1,4 @@
-import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig, Sequence } from 'remotion';
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig, Sequence, Img, staticFile } from 'remotion';
 import { loadFont } from '@remotion/google-fonts/Inter';
 
 // Cargar fuente agresiva
@@ -6,7 +6,6 @@ const { fontFamily } = loadFont();
 
 const Title = ({ text, color, bg }: { text: string; color: string; bg: string }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
   
   // Efecto de entrada "Golpe" (Scale down rapido)
   const scale = interpolate(frame, [0, 5], [1.5, 1], { extrapolateRight: 'clamp' });
@@ -45,6 +44,53 @@ const FlashWord = ({ word }: { word: string }) => {
     )
 }
 
+const FinalBrand = () => {
+    const frame = useCurrentFrame();
+    
+    // Animación Cerebro: Golpe de zoom + Rotación sutil
+    const scaleBrain = interpolate(frame, [0, 5], [2, 1], { extrapolateRight: 'clamp' });
+    const rotateBrain = interpolate(frame, [0, 60], [0, 5]); // Sutil rotación continua
+    
+    // Animación Texto: Aparece con delay y glitch
+    const opacityText = interpolate(frame, [10, 15], [0, 1]);
+    const glitchText = interpolate(frame % 5, [0, 1, 2, 3, 4], [0, 5, -5, 2, 0]);
+
+    return (
+        <AbsoluteFill style={{ backgroundColor: '#000', justifyContent: 'center', alignItems: 'center' }}>
+            {/* CEREBRO */}
+            <div style={{ transform: `scale(${scaleBrain}) rotate(${rotateBrain}deg)` }}>
+                <Img 
+                    src={staticFile('logo/logo-brain-white.png')} 
+                    style={{ width: '400px', height: 'auto' }} 
+                />
+            </div>
+
+            {/* TEXTO */}
+            <div style={{ 
+                marginTop: '50px', 
+                opacity: opacityText, 
+                transform: `translateX(${glitchText}px)` 
+            }}>
+                <Img 
+                    src={staticFile('logo/logo-text-white.png')} 
+                    style={{ width: '600px', height: 'auto' }} 
+                />
+            </div>
+            
+            <p style={{ 
+                fontFamily, 
+                color: '#666', 
+                marginTop: '40px', 
+                fontSize: '24px', 
+                letterSpacing: '5px',
+                opacity: interpolate(frame, [20, 30], [0, 1])
+            }}>
+                CAPITALIZA EL CAOS
+            </p>
+        </AbsoluteFill>
+    );
+}
+
 export const ManifestoAd = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: 'black' }}>
@@ -69,12 +115,9 @@ export const ManifestoAd = () => {
         <FlashWord word="VENTAS" />
       </Sequence>
 
-      {/* SCENE 4: CIERRE - IDENTIDAD */}
+      {/* SCENE 4: CIERRE - IDENTIDAD GRAFICA */}
       <Sequence from={70} durationInFrames={60}>
-         <AbsoluteFill style={{ backgroundColor: '#000', justifyContent: 'center', alignItems: 'center' }}>
-            <h1 style={{ fontFamily, fontSize: '80px', color: '#fff', letterSpacing: '10px' }}>AGENC<span style={{color: '#4f46e5'}}>IA</span></h1>
-            <p style={{ fontFamily, fontSize: '30px', color: '#666', marginTop: '20px' }}>CAPITALIZA EL CAOS</p>
-         </AbsoluteFill>
+         <FinalBrand />
       </Sequence>
     </AbsoluteFill>
   );
