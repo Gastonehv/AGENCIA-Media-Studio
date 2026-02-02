@@ -48,7 +48,7 @@ const FinalBrand = () => {
     const frame = useCurrentFrame();
     
     // Animación Cerebro: Golpe de zoom + Rotación sutil
-    const scaleBrain = interpolate(frame, [0, 5], [2, 1], { extrapolateRight: 'clamp' });
+    const scaleBrain = interpolate(frame, [0, 5], [1.2, 0.8], { extrapolateRight: 'clamp' }); // Reducido para encajar
     const rotateBrain = interpolate(frame, [0, 60], [0, 5]); // Sutil rotación continua
     
     // Animación Texto: Aparece con delay y glitch
@@ -61,19 +61,19 @@ const FinalBrand = () => {
             <div style={{ transform: `scale(${scaleBrain}) rotate(${rotateBrain}deg)` }}>
                 <Img 
                     src={staticFile('logo/logo-brain-white.png')} 
-                    style={{ width: '400px', height: 'auto' }} 
+                    style={{ width: '800px', height: 'auto', objectFit: 'contain' }} 
                 />
             </div>
 
             {/* TEXTO */}
             <div style={{ 
-                marginTop: '50px', 
+                marginTop: '20px', 
                 opacity: opacityText, 
                 transform: `translateX(${glitchText}px)` 
             }}>
                 <Img 
                     src={staticFile('logo/logo-text-white.png')} 
-                    style={{ width: '600px', height: 'auto' }} 
+                    style={{ width: '900px', height: 'auto', objectFit: 'contain' }} 
                 />
             </div>
             
