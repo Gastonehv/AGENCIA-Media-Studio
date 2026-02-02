@@ -27,7 +27,8 @@ const Title = ({ text, color, bg }: { text: string; color: string; bg: string })
           opacity,
           letterSpacing: '-5px',
           lineHeight: '0.9',
-          textAlign: 'center'
+          textAlign: 'center',
+          whiteSpace: 'pre-wrap' // Permite saltos de línea reales
         }}
       >
         {text}
@@ -82,12 +83,12 @@ export const ManifestoAd = () => {
     <AbsoluteFill style={{ backgroundColor: 'black' }}>
       {/* SCENE 1: AGRESIVO - NEGRO */}
       <Sequence from={0} durationInFrames={30}>
-        <Title text="TU WEB\nESTÁ MUERTA" color="white" bg="black" />
+        <Title text={`TU WEB\nESTÁ MUERTA`} color="white" bg="black" />
       </Sequence>
 
       {/* SCENE 2: INVERSION - BLANCO */}
       <Sequence from={30} durationInFrames={25}>
-        <Title text="NADIE\nTE VE" color="black" bg="white" />
+        <Title text={`NADIE\nTE VE`} color="black" bg="white" />
       </Sequence>
 
       {/* SCENE 3: PALABRAS RAPIDAS (SUBLIMINAL) */}
