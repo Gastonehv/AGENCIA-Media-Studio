@@ -48,41 +48,27 @@ const FinalBrand = () => {
     const frame = useCurrentFrame();
     
     // Animación Cerebro: Golpe de zoom + Rotación sutil
-    const scaleBrain = interpolate(frame, [0, 5], [1.2, 0.8], { extrapolateRight: 'clamp' }); // Reducido para encajar
-    const rotateBrain = interpolate(frame, [0, 60], [0, 5]); // Sutil rotación continua
-    
-    // Animación Texto: Aparece con delay y glitch
-    const opacityText = interpolate(frame, [10, 15], [0, 1]);
-    const glitchText = interpolate(frame % 5, [0, 1, 2, 3, 4], [0, 5, -5, 2, 0]);
+    const scaleBrand = interpolate(frame, [0, 5], [1.2, 0.9], { extrapolateRight: 'clamp' }); // Entrada con golpe
+    const opacityBrand = interpolate(frame, [0, 10], [0, 1]); // Fade in rápido
 
     return (
         <AbsoluteFill style={{ backgroundColor: '#000', justifyContent: 'center', alignItems: 'center' }}>
-            {/* CEREBRO */}
-            <div style={{ transform: `scale(${scaleBrain}) rotate(${rotateBrain}deg)` }}>
+            {/* MARCA COMPLETA (Logo + Texto integrados) */}
+            <div style={{ transform: `scale(${scaleBrand})` }}>
                 <Img 
                     src={staticFile('logo/logo-brain-white.png')} 
                     style={{ width: '800px', height: 'auto', objectFit: 'contain' }} 
                 />
             </div>
-
-            {/* TEXTO */}
-            <div style={{ 
-                marginTop: '20px', 
-                opacity: opacityText, 
-                transform: `translateX(${glitchText}px)` 
-            }}>
-                <Img 
-                    src={staticFile('logo/logo-text-white.png')} 
-                    style={{ width: '900px', height: 'auto', objectFit: 'contain' }} 
-                />
-            </div>
             
+            {/* Slogan */}
             <p style={{ 
                 fontFamily, 
                 color: '#666', 
-                marginTop: '40px', 
-                fontSize: '24px', 
-                letterSpacing: '5px',
+                marginTop: '60px', 
+                fontSize: '30px', 
+                letterSpacing: '8px',
+                fontWeight: 'bold',
                 opacity: interpolate(frame, [20, 30], [0, 1])
             }}>
                 CAPITALIZA EL CAOS
